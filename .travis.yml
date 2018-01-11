@@ -1,0 +1,17 @@
+language: python
+
+sudo: false
+
+python:
+  - "2.7"
+  - "3.6"
+
+install:
+  - pip install coveralls
+  - pip install vcrpy
+
+script:
+  - nosetests -v --with-coverage --cover-package=pyxylookup
+
+after_success:
+  - coveralls --verbose
