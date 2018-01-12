@@ -9,6 +9,8 @@ vcrpy = "*"
 tox = "*"
 requests = "*"
 "u-msgpack-python" = "*"
+pandas = "*"
+nose = "*"
 
 
 [dev-packages]
