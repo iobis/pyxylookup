@@ -35,25 +35,48 @@ __author__ = 'Samuel Bosch'
 __license__ = 'MIT'
 
 import umsgpack as msgpack
+import numpy as np
 import requests
 
 
 def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=False):
-    if not points or not isinstance(points, list) or not len(points) > 0 or not all([isinstance(pair, list) and len(pair) for pair in points]):
+
+    # TODO limit number of points send to 100000
+
+    points = np.asarray(points)
+    if not points or points.shape[1] == 0 or points.shape[2] == 2:
         raise ValueError("Points should be a non-empty nested array of longitude latitude coordinates")
+
+    try:
+        points = points.astype(float)
+    except ValueError:
+        raise ValueError("Points should be numeric")
+
     if not shoredistance and not grids and not areas:
         raise TypeError("At least one of shoredistance, grids or areas should be True")
+
+    points, duplicate_indices = np.unique(points, return_inverse=True, axis=0)
+
+    nan = np.isnan(points)
+    nan = (nan[:, 0] | nan[:, 1])
+    points = points[~nan]
+
     data = {
         'points': points,
         'shoredistance': shoredistance,
         'grids': grids,
-        'areas':areas
+        'areas': areas
     }
     msgdata = msgpack.dumps(data)
     headers = {'content-type': 'application/msgpack'}
     r = requests.post('http://api.iobis.org/xylookup/', data=msgdata, headers=headers)
     if r.status_code == 200:
         result = msgpack.loads(r.content)
+
+        for nani in np.where(nan):
+            result.insert(nani, {})
+
+        result = result[duplicate_indices]
         if asdataframe:
             try:
                 import pandas as pd

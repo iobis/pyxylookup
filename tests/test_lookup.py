@@ -4,13 +4,21 @@ import numpy as np
 import vcr
 from nose.tools import raises
 
-test_points = [[0,0], [1,1]]
+test_points = [[0, 1], [2, 3]]
 
 
 @vcr.use_cassette('tests/vcr_cassettes/lookup_points_array.yaml')
 def test_lookup_points_array():
     """lookup - points array"""
     r = xy.lookup(test_points)
+    assert len(r) == 2
+
+
+@vcr.use_cassette('tests/vcr_cassettes/lookup_points_tuples_list.yaml')
+def test_lookup_points_tuples_list():
+    """lookup - points tuples list"""
+    test_points_tuples = [(4, 5), (6, 7)]
+    r = xy.lookup(test_points_tuples)
     assert len(r) == 2
 
 
@@ -54,5 +62,43 @@ def test_lookup_wrong_points():
     test_lookup_wrong_points_error([])
     test_lookup_wrong_points_error([[]])
     test_lookup_wrong_points_error("[[0,0]]")
-    test_lookup_wrong_points_error(pd.DataFrame({'x': [0, 1], 'y': [0, 1]}))
-    test_lookup_wrong_points_error(np.asarray([[0, 1], [0, 1]]))
+    test_lookup_wrong_points_error(pd.DataFrame({'x': [0, 2], 'y': [1, 3]}))
+    test_lookup_wrong_points_error(np.asarray([[0, 2], [1, 3]]))
+
+
+@vcr.use_cassette('tests/vcr_cassettes/lookup_many_points.yaml')
+def test_lookup_many_points():
+    """Lookup many points"""
+    import random
+    random.seed(42)
+    points = [[random.uniform(-180, 180), random.uniform(-90,90)] for _ in range(100000)]
+    r = xy.lookup(points, shoredistance=True, grids=True, areas=True, asdataframe=True)
+    assert r.shape[0] == len(points)
+    assert r.shape[1] >= 5
+
+
+@vcr.use_cassette('tests/vcr_cassettes/lookup_duplicate_points.yaml')
+def test_lookup_duplicate_points():
+    """Lookup duplicate points"""
+    points = test_points * 10000
+    r = xy.lookup(points, shoredistance=True, grids=False, areas=False, asdataframe=False)
+    assert len(r) == len(points)
+    r = xy.lookup(points, shoredistance=True, grids=False, areas=False, asdataframe=True)
+    assert r.shape[0] == len(points)
+    assert r.shape[1] >= 1
+
+
+@vcr.use_cassette('tests/vcr_cassettes/lookup_na_points.yaml')
+def test_lookup_na_points():
+    """Lookup NA points"""
+    import math
+    points = [[0,1], [float('nan'), 3], [4, float('nan')], [5, 6]]
+    r = xy.lookup(points, shoredistance=True, grids=False, areas=False, asdataframe=False)
+    assert len(r) == len(points)
+    assert r[1] == {}
+    assert r[2] == {}
+    r = xy.lookup(points, shoredistance=True, grids=True, areas=True, asdataframe=True)
+    assert r.shape[0] == len(points)
+    assert r.shape[1] >= 1
+    assert math.isnan(r["shoredistance"][1])
+    assert math.isnan(r["shoredistance"][2])

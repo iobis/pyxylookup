@@ -30,7 +30,8 @@ setup(
   license="MIT",
   packages=find_packages(exclude=['test-*']),
   install_requires=['requests>2.7',
-                    'u-msgpack-python>=2.4.1'],
+                    'u-msgpack-python>=2.4.1',
+                    'numpy>=1.14.0'],
   classifiers=(
     'Development Status :: 1 - Alpha',
     'Intended Audience :: Science/Research',
