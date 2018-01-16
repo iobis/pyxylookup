@@ -41,11 +41,11 @@ import requests
 
 def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=False):
 
-    # TODO limit number of points send to 100000
+    # TODO limit number of points send to 25000
 
     points = np.asarray(points)
-    if not points or points.shape[1] == 0 or points.shape[2] == 2:
-        raise ValueError("Points should be a non-empty nested array of longitude latitude coordinates")
+    if len(points.shape) != 2 or points.shape[1] != 2:
+        raise ValueError("Points should be a nested array of longitude latitude coordinates or a numpy.ndarray")
 
     try:
         points = points.astype(float)
@@ -62,7 +62,7 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
     points = points[~nan]
 
     data = {
-        'points': points,
+        'points': points.tolist(),
         'shoredistance': shoredistance,
         'grids': grids,
         'areas': areas
@@ -73,10 +73,10 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
     if r.status_code == 200:
         result = msgpack.loads(r.content)
 
-        for nani in np.where(nan):
+        for nani in np.where(nan)[0]:
             result.insert(nani, {})
 
-        result = result[duplicate_indices]
+        result = np.asarray(result)[duplicate_indices]
         if asdataframe:
             try:
                 import pandas as pd
@@ -85,14 +85,17 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
                 if shoredistance:
                     df_list.append(pd.DataFrame({'shoredistance': df[b'shoredistance']}))
                 if grids:
+                    nan = nan[duplicate_indices]
+                    df.loc[nan, b'grids'] = [{}] * np.sum(nan)
                     df_list.append(pd.DataFrame.from_records(df[b'grids']))
                 if areas:
-                    df_list.append(pd.DataFrame({'areas':df[b'areas']}))
+                    df.loc[nan, b'areas'] = [{}] * np.sum(nan)
+                    df_list.append(pd.DataFrame({'areas': df[b'areas']}))
                 result = pd.concat(df_list, axis=1)
                 return result
             except ImportError:
                 raise ImportError("pandas is required for the 'asdataframe' parameter in the lookup function")
         else:
-            return result
+            return list(result)
     else:
         raise Exception(r.content)

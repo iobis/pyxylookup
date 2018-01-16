@@ -1,0 +1,32 @@
+interactions:
+- request:
+    body: !!binary |
+      hKZwb2ludHOTksvAZUAAAAAAAMs/8AAAAAAAAJLLAAAAAAAAAADLQBQAAAAAAACSy0BeAAAAAAAA
+      ywAAAAAAAAAArXNob3JlZGlzdGFuY2XDpWdyaWRzw6VhcmVhc8I=
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['95']
+      User-Agent: [python-requests/2.18.4]
+      content-type: [application/msgpack]
+    method: POST
+    uri: http://api.iobis.org/xylookup/
+  response:
+    body:
+      string: !!binary |
+        k4LEDXNob3JlZGlzdGFuY2XLQRwMgAAAAADEBWdyaWRzg61zc3RlbXBlcmF0dXJly0A7n++AAAAA
+        qnNzc2FsaW5pdHnLQEGfSqAAAACqYmF0aHltZXRyectAtTgAAAAAAILEDXNob3JlZGlzdGFuY2XL
+        QO8OYAAAAADEBWdyaWRzg61zc3RlbXBlcmF0dXJly0A7SvPgAAAAqnNzc2FsaW5pdHnLQEFBfQAA
+        AACqYmF0aHltZXRyectAqc4AAAAAAILEDXNob3JlZGlzdGFuY2XLwL6oAAAAAADEBWdyaWRzg61z
+        c3RlbXBlcmF0dXJly0A9e1CAAAAAqnNzc2FsaW5pdHnLQEBQkMAAAACqYmF0aHltZXRyecvAdhAA
+        AAAAAA==
+    headers:
+      Access-Control-Allow-Origin: ['*']
+      Connection: [keep-alive]
+      Content-Length: ['289']
+      Content-Type: [application/msgpack]
+      Date: ['Tue, 16 Jan 2018 10:44:07 GMT']
+      Server: [nginx/1.10.3 (Ubuntu)]
+    status: {code: 200, message: OK}
+version: 1

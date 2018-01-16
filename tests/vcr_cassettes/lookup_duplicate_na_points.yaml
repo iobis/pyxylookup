@@ -1,0 +1,58 @@
+interactions:
+- request:
+    body: !!binary |
+      hKZwb2ludHOSkssAAAAAAAAAAMs/8AAAAAAAAJLLQBQAAAAAAADLQBgAAAAAAACtc2hvcmVkaXN0
+      YW5jZcOlZ3JpZHPCpWFyZWFzwg==
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['76']
+      User-Agent: [python-requests/2.18.4]
+      content-type: [application/msgpack]
+    method: POST
+    uri: http://api.iobis.org/xylookup/
+  response:
+    body:
+      string: !!binary |
+        koHEDXNob3JlZGlzdGFuY2XLQRzPKAAAAACBxA1zaG9yZWRpc3RhbmNly8DCewAAAAAA
+    headers:
+      Access-Control-Allow-Origin: ['*']
+      Connection: [keep-alive]
+      Content-Length: ['51']
+      Content-Type: [application/msgpack]
+      Date: ['Tue, 16 Jan 2018 10:45:46 GMT']
+      Server: [nginx/1.10.3 (Ubuntu)]
+    status: {code: 200, message: OK}
+- request:
+    body: !!binary |
+      hKZwb2ludHOSkssAAAAAAAAAAMs/8AAAAAAAAJLLQBQAAAAAAADLQBgAAAAAAACtc2hvcmVkaXN0
+      YW5jZcOlZ3JpZHPDpWFyZWFzww==
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['76']
+      User-Agent: [python-requests/2.18.4]
+      content-type: [application/msgpack]
+    method: POST
+    uri: http://api.iobis.org/xylookup/
+  response:
+    body:
+      string: !!binary |
+        koPEDXNob3JlZGlzdGFuY2XLQRzPKAAAAADEBWdyaWRzg61zc3RlbXBlcmF0dXJly0A7oN0AAAAA
+        qnNzc2FsaW5pdHnLQEFcAUAAAACqYmF0aHltZXRyectAsyUAAAAAAMQFYXJlYXOBxAtmaW5hbF9n
+        cmlkNZKFxAdjb3VudHJ5wMQEYmFzZcQBVMQEdHlwZcQEYWJuasQEbmFtZcQOTm9ydGggQXRsYW50
+        aWPEBXNwX2lkxAMxNTeFxAdjb3VudHJ5wMQEYmFzZcQBRsQEdHlwZcQEYWJuasQEbmFtZcQJQUJO
+        SjogYWxsxAVzcF9pZMQEYWJuaoPEDXNob3JlZGlzdGFuY2XLwMJ7AAAAAADEBWdyaWRzgapiYXRo
+        eW1ldHJ5y8AAAAAAAAAAxAVhcmVhc4HEC2ZpbmFsX2dyaWQ1kYXEB2NvdW50cnnAxARiYXNlxAFU
+        xAR0eXBlxANlZXrEBG5hbWXEB05pZ2VyaWHEBXNwX2lkxAMxNTY=
+    headers:
+      Access-Control-Allow-Origin: ['*']
+      Connection: [keep-alive]
+      Content-Length: ['380']
+      Content-Type: [application/msgpack]
+      Date: ['Tue, 16 Jan 2018 10:45:46 GMT']
+      Server: [nginx/1.10.3 (Ubuntu)]
+    status: {code: 200, message: OK}
+version: 1
