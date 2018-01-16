@@ -39,10 +39,17 @@ import numpy as np
 import requests
 
 
+def _lookup(data):
+    msgdata = msgpack.dumps(data)
+    headers = {'content-type': 'application/msgpack'}
+    r = requests.post('http://api.iobis.org/xylookup/', data=msgdata, headers=headers)
+    if r.status_code == 200:
+        return msgpack.loads(r.content)
+    else:
+        raise Exception(r.content)
+
+
 def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=False):
-
-    # TODO limit number of points send to 25000
-
     points = np.asarray(points)
     if len(points.shape) != 2 or points.shape[1] != 2:
         raise ValueError("Points should be a nested array of longitude latitude coordinates or a numpy.ndarray")
@@ -61,41 +68,38 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
     nan = (nan[:, 0] | nan[:, 1])
     points = points[~nan]
 
-    data = {
-        'points': points.tolist(),
-        'shoredistance': shoredistance,
-        'grids': grids,
-        'areas': areas
-    }
-    msgdata = msgpack.dumps(data)
-    headers = {'content-type': 'application/msgpack'}
-    r = requests.post('http://api.iobis.org/xylookup/', data=msgdata, headers=headers)
-    if r.status_code == 200:
-        result = msgpack.loads(r.content)
+    pointchunks = np.array_split(points, (len(points) // 25000) + 1)
+    result = []
+    for chunk in pointchunks:
+        data = {
+            'points': chunk.tolist(),
+            'shoredistance': shoredistance,
+            'grids': grids,
+            'areas': areas
+        }
+        result.extend(_lookup(data))
 
-        for nani in np.where(nan)[0]:
-            result.insert(nani, {})
+    for nani in np.where(nan)[0]:
+        result.insert(nani, {})
 
-        result = np.asarray(result)[duplicate_indices]
-        if asdataframe:
-            try:
-                import pandas as pd
-                df = pd.DataFrame.from_records(result)
-                df_list = []
-                if shoredistance:
-                    df_list.append(pd.DataFrame({'shoredistance': df[b'shoredistance']}))
-                if grids:
-                    nan = nan[duplicate_indices]
-                    df.loc[nan, b'grids'] = [{}] * np.sum(nan)
-                    df_list.append(pd.DataFrame.from_records(df[b'grids']))
-                if areas:
-                    df.loc[nan, b'areas'] = [{}] * np.sum(nan)
-                    df_list.append(pd.DataFrame({'areas': df[b'areas']}))
-                result = pd.concat(df_list, axis=1)
-                return result
-            except ImportError:
-                raise ImportError("pandas is required for the 'asdataframe' parameter in the lookup function")
-        else:
-            return list(result)
+    result = np.asarray(result)[duplicate_indices]
+    if asdataframe:
+        try:
+            import pandas as pd
+            df = pd.DataFrame.from_records(result)
+            df_list = []
+            if shoredistance:
+                df_list.append(pd.DataFrame({'shoredistance': df[b'shoredistance']}))
+            if grids:
+                nan = nan[duplicate_indices]
+                df.loc[nan, b'grids'] = [{}] * np.sum(nan)
+                df_list.append(pd.DataFrame.from_records(df[b'grids']))
+            if areas:
+                df.loc[nan, b'areas'] = [{}] * np.sum(nan)
+                df_list.append(pd.DataFrame({'areas': df[b'areas']}))
+            result = pd.concat(df_list, axis=1)
+            return result
+        except ImportError:
+            raise ImportError("pandas is required for the 'asdataframe' parameter in the lookup function")
     else:
-        raise Exception(r.content)
+        return list(result)

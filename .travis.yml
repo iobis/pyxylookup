@@ -4,9 +4,15 @@ sudo: false
 
 python:
   - "2.7"
+  - "3.5"
   - "3.6"
+  - "3.7-dev"
 
 install:
+  - pip install 'requests>=2.7'
+  - pip install 'u-msgpack-python>=2.4.1'
+  - pip install 'numpy>=1.14.0'
+  - pip install pandas
   - pip install coveralls
   - pip install vcrpy
 
