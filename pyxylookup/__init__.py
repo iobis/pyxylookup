@@ -13,18 +13,6 @@ Usage::
         # Import library
         import pyxylookup
 
-        ## use advanced logging
-        ### setup first
-        import requests
-        import logging
-        import httplib as http_client
-        http_client.HTTPConnection.debuglevel = 1
-        logging.basicConfig()
-        logging.getLogger().setLevel(logging.DEBUG)
-        requests_log = logging.getLogger("requests.packages.urllib3")
-        requests_log.setLevel(logging.DEBUG)
-        requests_log.propagate = True
-        ### then make request
         from pyxylookup import lookupxy
         lookup_xy([[0,0], [1,1]])
 """
@@ -50,6 +38,16 @@ def _lookup(data):
 
 
 def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=False):
+    """Lookup data for a set of coordinates
+
+    :param points: A set of longitude/latitude coordinates as a nested list, a 2d numpy array or a 2 column pandas DataFrame
+    :param shoredistance: Indicate whether the shoredistance should be returned (default: True)
+    :param grids: Indicate whether grid values such as temperature and bathymetry should be returned (default: True)
+    :param areas: Indicate whether the area values should be returned (default: False)
+    :param asdataframe: Indicate whether a pandas DataFrame or a list of dictionaries should be returned (default: False).
+    :return: A list of dictionaries with the values (default) or a pandas DataFrame if asdataframe is True.
+    :raises: ValueError, TypeError
+    """
     points = np.asarray(points)
     if len(points.shape) != 2 or points.shape[1] != 2:
         raise ValueError("Points should be a nested array of longitude latitude coordinates or a numpy.ndarray")

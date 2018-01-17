@@ -45,6 +45,7 @@ Development environment installation
     pipenv install requests
     pipenv install u-msgpack-python
     pipenv install pandas
+    pipenv sphinx sphinx-autobuild
     # enter virtual evironment
     pipenv shell
 

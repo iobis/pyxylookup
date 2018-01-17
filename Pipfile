@@ -11,6 +11,8 @@ requests = "*"
 "u-msgpack-python" = "*"
 pandas = "*"
 nose = "*"
+sphinx = "*"
+"sphinx-autobuild" = "*"
 
 
 [dev-packages]
