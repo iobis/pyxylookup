@@ -7,6 +7,8 @@ Python client for the `OBIS xylookup API <http://github.com/iobis/xylookup>`_
 
 `Source on GitHub at iobis/pyxylookup <https://github.com/iobis/pyxylookup>`_
 
+`Documentation at Read the Docs <http://pyxylookup.readthedocs.io/>`_
+
 Other OBIS xylookup clients:
 
 * R: `obistools`, `iobis/obistools <https://github.com/iobis/obistools>`_
