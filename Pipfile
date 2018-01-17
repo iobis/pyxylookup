@@ -13,6 +13,7 @@ pandas = "*"
 nose = "*"
 sphinx = "*"
 "sphinx-autobuild" = "*"
+"sphinx-rtd-theme" = "*"
 
 
 [dev-packages]
