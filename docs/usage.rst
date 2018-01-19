@@ -20,8 +20,7 @@ A nested list of longitude/latitude values, a 2D numpy array or a pandas DataFra
 
     ## pandas DataFrame
     import pandas as pd
-    pointsdf = pd.DataFrame({'x': [120,-170], 'y': [0,1]})
-    points = pointsdf.to_records(index=False).tolist()
+    points = pd.DataFrame({'x': [120,-170], 'y': [0,1]})
     ## retrieve results as a pandas DataFrame
     xy.lookup(points, asdataframe = True)
 

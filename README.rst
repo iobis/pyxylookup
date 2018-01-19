@@ -13,6 +13,13 @@ Other OBIS xylookup clients:
 
 * R: `obistools`, `iobis/obistools <https://github.com/iobis/obistools>`_
 
+Installation
+============
+
+.. code-block:: shell
+
+    pip install git+git://github.com/iobis/pyxylookup.git
+
 Example usage
 =============
 
@@ -29,8 +36,7 @@ Example usage
 
     ## pandas DataFrame
     import pandas as pd
-    pointsdf = pd.DataFrame({'x': [120,-170], 'y': [0,1]})
-    points = pointsdf.to_records(index=False).tolist()
+    points = pd.DataFrame({'x': [120,-170], 'y': [0,1]})
     ## retrieve results as a pandas DataFrame
     xy.lookup(points, asdataframe = True)
 
@@ -38,7 +44,7 @@ Example usage
 Development environment installation
 ====================================
 
-.. code-block:: console
+.. code-block:: shell
 
     pipenv --three
     pipenv install vcrpy
