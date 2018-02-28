@@ -53,7 +53,7 @@ Development environment installation
     pipenv install requests
     pipenv install u-msgpack-python
     pipenv install pandas
-    pipenv sphinx sphinx-autobuild sphinx_rtd_theme
+    pipenv install sphinx sphinx-autobuild sphinx_rtd_theme
     # enter virtual evironment
     pipenv shell
 

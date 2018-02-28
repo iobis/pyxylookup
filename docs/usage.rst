@@ -43,8 +43,7 @@ For those using the pandas package, a pandas.DataFrame can be used for the point
 .. code-block:: python
 
     import pandas as pd
-    pointsdf = pd.DataFrame({'x': [120,-170], 'y': [0,1]})
-    points = pointsdf.to_records(index=False).tolist()
+    points = pd.DataFrame({'x': [120,-170], 'y': [0,1]})
     ## retrieve results as a pandas DataFrame
     xy.lookup(points, shoredistance=True, grids=True, areas=True, asdataframe = True)
 
