@@ -51,12 +51,8 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
     points = np.asarray(points)
     if len(points.shape) != 2 or points.shape[1] != 2:
         raise ValueError("Points should be a nested array of longitude latitude coordinates or a numpy.ndarray")
-
     try:
         points = points.astype(float)
-        if not all([-180 <= p[0] <= 180 and -90 <= p[1] <= 90 for p in points]):
-            raise ValueError('Invalid coordinates (xmin: -180, ymin: -90, xmax: 180, ymax: 90)',
-                             'x/y points')
     except ValueError:
         raise ValueError("Points should be numeric")
 
@@ -68,6 +64,10 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
     nan = np.isnan(points)
     nan = (nan[:, 0] | nan[:, 1])
     points = points[~nan]
+
+    if not all([-180 <= p[0] <= 180 and -90 <= p[1] <= 90 for p in points]):
+        raise ValueError('Invalid coordinates (xmin: -180, ymin: -90, xmax: 180, ymax: 90)',
+                         'x/y points')
 
     pointchunks = np.array_split(points, (len(points) // 25000) + 1)
     result = []
