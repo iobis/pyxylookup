@@ -54,6 +54,9 @@ def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=Fals
 
     try:
         points = points.astype(float)
+        if not all([-180 <= p[0] <= 180 and -90 <= p[1] <= 90 for p in points]):
+            raise ValueError('Invalid coordinates (xmin: -180, ymin: -90, xmax: 180, ymax: 90)',
+                             'x/y points')
     except ValueError:
         raise ValueError("Points should be numeric")
 
