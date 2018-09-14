@@ -22,17 +22,17 @@ __title__ = 'pyxylookup'
 __author__ = 'Samuel Bosch'
 __license__ = 'MIT'
 
-import umsgpack as msgpack
+import msgpack
 import numpy as np
 import requests
-
+import sys
 
 def _lookup(data):
     msgdata = msgpack.dumps(data)
     headers = {'content-type': 'application/msgpack'}
     r = requests.post('http://api.iobis.org/xylookup/', data=msgdata, headers=headers)
     if r.status_code == 200:
-        return msgpack.loads(r.content)
+        return msgpack.loads(r.content, raw=False)
     else:
         raise Exception(r.content)
 

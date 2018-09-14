@@ -4,17 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-
 vcrpy = "*"
 tox = "*"
 requests = "*"
-"u-msgpack-python" = "*"
 pandas = "*"
 nose = "*"
 sphinx = "*"
-"sphinx-autobuild" = "*"
-"sphinx-rtd-theme" = "*"
-
+sphinx-autobuild = "*"
+sphinx-rtd-theme = "*"
+msgpack = "*"
 
 [dev-packages]
 
