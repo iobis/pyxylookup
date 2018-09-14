@@ -25,7 +25,7 @@ __license__ = 'MIT'
 import msgpack
 import numpy as np
 import requests
-import sys
+
 
 def _lookup(data):
     msgdata = msgpack.dumps(data)
@@ -44,6 +44,7 @@ def lookup(points, shoredistance=True, grids=True, areas=False, areasdistancewit
     :param shoredistance: Indicate whether the shoredistance should be returned (default: True)
     :param grids: Indicate whether grid values such as temperature and bathymetry should be returned (default: True)
     :param areas: Indicate whether the area values should be returned (default: False)
+    :param areasdistancewithin: Distance in meters within which areas have to be in order to be detected (default: 0 meters = intersect).
     :param asdataframe: Indicate whether a pandas DataFrame or a list of dictionaries should be returned (default: False).
     :return: A list of dictionaries with the values (default) or a pandas DataFrame if asdataframe is True.
     :raises: ValueError, TypeError
@@ -76,7 +77,8 @@ def lookup(points, shoredistance=True, grids=True, areas=False, areasdistancewit
             'points': chunk.tolist(),
             'shoredistance': shoredistance,
             'grids': grids,
-            'areas': areas
+            'areas': areas,
+            'areasdistancewithin': areasdistancewithin
         }
         result.extend(_lookup(data))
 

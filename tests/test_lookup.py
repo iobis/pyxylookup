@@ -90,6 +90,15 @@ def test_lookup_many_points():
     assert r.shape[0] == len(points)
     assert r.shape[1] >= 5
 
+@vcr.use_cassette('tests/vcr_cassettes/lookup_use_areas_distance.yaml')
+def test_lookup_many_points():
+    """Lookup many points"""
+    import random
+    random.seed(42)
+    points = [[random.uniform(-180, 180), random.uniform(-90,90)] for _ in range(10)]
+    r = xy.lookup(points, shoredistance=False, grids=False, areas=True, areasdistancewithin=1000000, asdataframe=True)
+    assert r.shape[0] == len(points)
+    assert r.shape[1] >= 1
 
 @vcr.use_cassette('tests/vcr_cassettes/lookup_duplicate_points.yaml')
 def test_lookup_duplicate_points():
