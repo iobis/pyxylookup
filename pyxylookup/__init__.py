@@ -37,7 +37,7 @@ def _lookup(data):
         raise Exception(r.content)
 
 
-def lookup(points, shoredistance=True, grids=True, areas=False, asdataframe=False):
+def lookup(points, shoredistance=True, grids=True, areas=False, areasdistancewithin=0, asdataframe=False):
     """Lookup data for a set of coordinates
 
     :param points: A set of longitude/latitude coordinates as a nested list, a 2d numpy array or a 2 column pandas DataFrame
