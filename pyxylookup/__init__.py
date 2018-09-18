@@ -92,14 +92,14 @@ def lookup(points, shoredistance=True, grids=True, areas=False, areasdistancewit
             df = pd.DataFrame.from_records(result)
             df_list = []
             if shoredistance:
-                df_list.append(pd.DataFrame({'shoredistance': df[b'shoredistance']}))
+                df_list.append(pd.DataFrame({'shoredistance': df['shoredistance']}))
             if grids:
                 nan = nan[duplicate_indices]
-                df.loc[nan, b'grids'] = [{}] * np.sum(nan)
-                df_list.append(pd.DataFrame.from_records(df[b'grids']))
+                df.loc[nan, 'grids'] = [{}] * np.sum(nan)
+                df_list.append(pd.DataFrame.from_records(df['grids']))
             if areas:
-                df.loc[nan, b'areas'] = [{}] * np.sum(nan)
-                df_list.append(pd.DataFrame({'areas': df[b'areas']}))
+                df.loc[nan, 'areas'] = [{}] * np.sum(nan)
+                df_list.append(pd.DataFrame({'areas': df['areas']}))
             result = pd.concat(df_list, axis=1)
             return result
         except ImportError:

@@ -56,6 +56,8 @@ Development environment installation
     pipenv install sphinx sphinx-autobuild sphinx_rtd_theme
     # enter virtual evironment
     pipenv shell
+    # run tests
+    pipenv run tox
 
 Meta
 ====
