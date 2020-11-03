@@ -17,7 +17,7 @@ Usage::
         lookup_xy([[0,0], [1,1]])
 """
 
-__version__ = '0.2.0.0'
+__version__ = '0.2.1.0'
 __title__ = 'pyxylookup'
 __author__ = 'Samuel Bosch'
 __license__ = 'MIT'
@@ -30,7 +30,7 @@ import requests
 def _lookup(data):
     msgdata = msgpack.dumps(data)
     headers = {'content-type': 'application/msgpack'}
-    r = requests.post('http://api.iobis.org/xylookup/', data=msgdata, headers=headers)
+    r = requests.post('https://api.obis.org/xylookup/', data=msgdata, headers=headers)
     if r.status_code == 200:
         return msgpack.loads(r.content, raw=False)
     else:
