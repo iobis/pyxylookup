@@ -34,7 +34,6 @@ setup(
                     'msgpack>=0.5.6',
                     'numpy>=1.14.0'],
   classifiers=(
-    'Development Status :: 1 - Alpha',
     'Intended Audience :: Science/Research',
     'Topic :: Scientific/Engineering :: Bio-Informatics',
     'Natural Language :: English',
