@@ -3,7 +3,8 @@ import re
 from setuptools import setup
 from setuptools import find_packages
 
-version = ''
+version = '0.2.1'
+
 with open('pyxylookup/__init__.py', 'r') as fd:
     version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
                         fd.read(), re.MULTILINE).group(1)
