@@ -1,8 +1,6 @@
 pyxylookup
 ==========
 
-|travis| |coverage|
-
 Python client for the `OBIS xylookup API <http://github.com/iobis/xylookup>`_
 
 `Source on GitHub at iobis/pyxylookup <https://github.com/iobis/pyxylookup>`_
@@ -63,9 +61,3 @@ Meta
 ====
 
 * License: MIT, see `LICENSE file <LICENSE>`_
-
-.. |travis| image:: https://travis-ci.org/iobis/pyxylookup.svg
-   :target: https://travis-ci.org/iobis/pyxylookup
-
-.. |coverage| image:: https://coveralls.io/repos/iobis/pyxylookup/badge.svg?branch=master&service=github
-   :target: https://coveralls.io/github/iobis/pyxylookup?branch=master

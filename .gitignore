@@ -1,3 +1,5 @@
+.vscode
+tests/tests
 __pycache__
 
 # Distribution / packaging
