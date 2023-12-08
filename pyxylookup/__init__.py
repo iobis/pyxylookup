@@ -17,7 +17,7 @@ Usage::
         lookup_xy([[0,0], [1,1]])
 """
 
-__version__ = '0.2.1'
+__version__ = '0.3.0'
 __title__ = 'pyxylookup'
 __author__ = 'Samuel Bosch'
 __license__ = 'MIT'
