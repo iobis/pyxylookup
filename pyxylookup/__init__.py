@@ -30,7 +30,7 @@ import requests
 def _lookup(data):
     msgdata = msgpack.dumps(data)
     headers = {'content-type': 'application/msgpack'}
-    r = requests.post('https://api.obis.org/xylookup/', data=msgdata, headers=headers)
+    r = requests.post('https://api.obis.org/xylookup', data=msgdata, headers=headers)
     if r.status_code == 200:
         return msgpack.loads(r.content, raw=False)
     else:
