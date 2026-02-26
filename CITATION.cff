@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: If you use this work, please cite it as below.
+title: Python client for XY lookup
+type: software
+abstract: Python client for the xylookup service
+url: https://github.com/iobis/pyxylookup
+license: MIT
+authors:
+  - given-names: Samuel
+    family-names: Bosch
+  - given-names: Pieter
+    family-names: Provoost
+    orcid: "https://orcid.org/0000-0002-4236-0384"
+  - name: Intergovernmental Oceanographic Commission of UNESCO
+    alias: IOC-UNESCO
+    website: "https://obis.org"
+date-released: 2023-12-08
